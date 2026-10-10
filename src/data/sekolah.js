@@ -167,7 +167,7 @@ export const GALERI_LIST = [
     id: "g4",
     judul: "Foto Bersama Dewan Guru & Staf",
     kategori: "Pendidik",
-    gambar: "/images/foto guruguru.jpeg",
+    gambar: "/images/Foto guruguru.jpeg",
     deskripsi:
       "Dewan guru dan tenaga kependidikan SMA Islam Ta'allumul Huda Bumiayu berfoto bersama di lapangan sekolah.",
   },
