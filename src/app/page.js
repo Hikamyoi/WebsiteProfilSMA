@@ -10,21 +10,20 @@ export default function HomePage() {
 
   // State untuk Slider Berita Geser
   const [slideIndex, setSlideIndex] = useState(0);
-  const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
   // 2 berita per tampilan slider
   const itemsPerPage = 2;
   const totalPages = Math.max(1, Math.ceil(semuaBerita.length / itemsPerPage));
 
-  // Geser otomatis tiap 5 detik jika mouse tidak sedang menunjuk kartu
+  // Geser otomatis tiap 5 detik jika mouse tidak sedang menunjuk kartu berita
   useEffect(() => {
-    if (!isAutoPlay || isHovered || totalPages <= 1) return;
+    if (isHovered || totalPages <= 1) return;
     const interval = setInterval(() => {
       setSlideIndex((prev) => (prev + 1) % totalPages);
     }, 5000);
     return () => clearInterval(interval);
-  }, [isAutoPlay, isHovered, totalPages]);
+  }, [isHovered, totalPages]);
 
   const nextSlide = () => setSlideIndex((prev) => (prev + 1) % totalPages);
   const prevSlide = () =>
@@ -76,52 +75,53 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 1. HERO SECTION DENGAN FOTO ASLI GEDUNG DEPAN */}
-      <section className="relative bg-[#082d4a] text-white">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Teks Sambutan Kiri */}
-          <div className="lg:col-span-7 space-y-4">
-            <span className="inline-block px-3 py-1 bg-[#f59e0b] text-slate-950 text-xs font-bold uppercase rounded">
-              Selamat Datang di Website Resmi
-            </span>
-            <h1 className="text-2xl sm:text-4xl font-extrabold leading-tight text-white font-serif">
-              SMA ISLAM TA&apos;ALLUMUL HUDA BUMIAYU
-            </h1>
-            <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-light">
-              &quot;
-              {DATA_SEKOLAH?.slogan ||
-                "Unggul dalam Imtaq, Berprestasi dalam Iptek, dan Berakhlakul Karimah"}
-              &quot;
-            </p>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Lembaga pendidikan menengah atas bernafaskan nilai-nilai Islam di
-              bawah naungan{" "}
-              {DATA_SEKOLAH?.yayasan ||
-                "Yayasan Wakaf Perguruan Ta'allumul Huda"}
-              , membina generasi cerdas, berprestasi, dan berakhlakul karimah.
-            </p>
-          </div>
+      {/* ========================================================================= */}
+      {/* 1. BANNER UTAMA SEKOLAH (PANORAMA DENGAN OVERLAY RESMI)                  */}
+      {/* ========================================================================= */}
+      <section className="relative w-full bg-[#082d4a] overflow-hidden">
+        {/* Gambar Banner Latar */}
+        <div className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px]">
+          <img
+            src="/images/fotodepan.jpg" // Ganti ke /images/banner.jpg jika punya file banner khusus
+            alt="Banner SMA Islam Ta'allumul Huda Bumiayu"
+            className="w-full h-full object-cover object-center"
+          />
+          {/* Gradient Overlay agar teks di atas banner terbaca tajam dan elegan */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#082d4a] via-[#082d4a]/70 to-black/40" />
+        </div>
 
-          {/* Visual Kanan: FOTO ASLI GEDUNG DEPAN SEKOLAH */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-lg overflow-hidden border-4 border-white/20 shadow-xl aspect-16/10 bg-slate-800">
-              <img
-                src="/images/fotodepan.jpg"
-                alt="Gedung Depan SMA Islam Ta'allumul Huda Bumiayu"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-0 inset-x-0 bg-slate-950/80 p-2 text-center text-xs text-slate-200">
-                Pintu Gerbang & Papan Monumen SMA Islam Ta&apos;allumul Huda
-              </div>
+        {/* Teks di Dalam Banner */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="max-w-2xl space-y-3 sm:space-y-4 text-white">
+              <span className="inline-block px-3 py-1 bg-[#f59e0b] text-slate-950 text-xs font-bold uppercase rounded tracking-wider shadow-sm">
+                Selamat Datang di Website Resmi
+              </span>
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight font-serif drop-shadow-md">
+                SMA ISLAM TA&apos;ALLUMUL HUDA
+              </h1>
+              <p className="text-sm sm:text-lg text-amber-200 font-light italic">
+                &quot;
+                {DATA_SEKOLAH?.slogan ||
+                  "Unggul dalam Imtaq, Berprestasi dalam Iptek, dan Berakhlakul Karimah"}
+                &quot;
+              </p>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-xl">
+                Membina generasi beriman, berilmu, dan berakhlakul karimah di
+                bawah naungan{" "}
+                {DATA_SEKOLAH?.yayasan ||
+                  "Yayasan Wakaf Perguruan Ta'allumul Huda Bumiayu"}
+                .
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* 2. STATISTIK & IDENTITAS SEKOLAH */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs text-center">
+          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-md text-center">
             <p className="text-2xl font-black text-[#0b3b60]">A</p>
             <p className="text-xs text-slate-500 font-medium">
               Status Akreditasi
@@ -130,7 +130,7 @@ export default function HomePage() {
               BAN-S/M Terakreditasi Unggul
             </p>
           </div>
-          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs text-center">
+          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-md text-center">
             <p className="text-2xl font-black text-[#0b3b60]">
               {DATA_SEKOLAH?.npsn || "20326442"}
             </p>
@@ -141,14 +141,14 @@ export default function HomePage() {
               Resmi Kemendikbudristek
             </p>
           </div>
-          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs text-center">
+          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-md text-center">
             <p className="text-2xl font-black text-[#0b3b60]">37+</p>
             <p className="text-xs text-slate-500 font-medium">Tahun Mengabdi</p>
             <p className="text-[11px] text-slate-400 mt-0.5">
               Berdiri Sejak 1987
             </p>
           </div>
-          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs text-center">
+          <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-md text-center">
             <p className="text-2xl font-black text-[#0b3b60]">1000+</p>
             <p className="text-xs text-slate-500 font-medium">
               Alumni Berprestasi
@@ -201,9 +201,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. BERITA & WARTA TERBARU (HEADER BERSIH DENGAN TOMBOL PANAH SAMPING KIRI & KANAN) */}
+      {/* 4. BERITA & WARTA TERBARU */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-        {/* Header Bersih */}
         <div className="pb-3 border-b-2 border-[#0b3b60]">
           <span className="text-xs font-bold text-[#0b3b60] uppercase tracking-wider">
             Berita & Prestasi Terkini
@@ -213,13 +212,12 @@ export default function HomePage() {
           </h2>
         </div>
 
-        {/* Konten Slider Berita dengan Tombol Panah Mengambang di Kiri & Kanan */}
+        {/* Slider Berita Panah Kiri Kanan */}
         <div
           className="relative group pt-1"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {/* Tombol Panah Kiri di Samping Berita */}
           <button
             type="button"
             onClick={prevSlide}
@@ -229,7 +227,6 @@ export default function HomePage() {
             ←
           </button>
 
-          {/* Tombol Panah Kanan di Samping Berita */}
           <button
             type="button"
             onClick={nextSlide}
@@ -239,7 +236,6 @@ export default function HomePage() {
             →
           </button>
 
-          {/* Kartu Berita yang Digeser (2 Berita per Tampilan) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-300">
             {semuaBerita
               .slice(
@@ -253,7 +249,6 @@ export default function HomePage() {
               ))}
           </div>
 
-          {/* Indikator Titik (Dots) di Bawah Kartu Berita */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-2 pt-5">
               {Array.from({ length: totalPages }).map((_, idx) => (
