@@ -31,7 +31,7 @@ export default function HomePage() {
 
   return (
     <div className="space-y-14 pb-16 bg-slate-50">
-      {/* 0. RUNNING TEXT WARTA BERJALAN (MARQUEE GESER) */}
+      {/* 0. RUNNING TEXT BERITA BERJALAN (MARQUEE GESER) */}
       <div className="bg-[#0b3b60] text-white text-xs py-2 px-4 border-b border-[#082d4a] overflow-hidden">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
           <div className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-amber-400 shrink-0 bg-[#082d4a] px-2.5 py-0.5 rounded text-[11px] border border-amber-400/20">
